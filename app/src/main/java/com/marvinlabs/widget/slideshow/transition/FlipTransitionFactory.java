@@ -11,7 +11,7 @@ import com.marvinlabs.widget.slideshow.SlideShowView;
 
 /**
  * A transition maker to flip the slides like cards.
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 02/06/2014.
  */
 public class FlipTransitionFactory extends BaseTransitionFactory {

@@ -10,7 +10,7 @@ import com.marvinlabs.widget.slideshow.SlideShowView;
 
 /**
  * A transition maker to slide out left and zoom in
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 28/05/2014.
  */
 public class SlideAndZoomTransitionFactory extends BaseTransitionFactory {

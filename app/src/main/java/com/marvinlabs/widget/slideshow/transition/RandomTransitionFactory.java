@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * A factory that will pick a random transition for the slides. This assumes that the IN animator is
  * always requested before the OUT animator.
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 02/06/2014.
  */
 public class RandomTransitionFactory extends BaseTransitionFactory {

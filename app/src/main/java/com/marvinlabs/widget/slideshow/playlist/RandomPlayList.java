@@ -7,7 +7,7 @@ import java.util.Collections;
 
 /**
  * A list that will play slides in their original order
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 29/05/2014.
  */
 public class RandomPlayList implements PlayList {

@@ -16,9 +16,9 @@ import java.lang.ref.WeakReference;
 /**
  * A base class to help handling the tasks particular to loading/discarding bitmaps for slides. This
  * can be a good base for subclasses that simply have to load the bitmaps the way they want to.
- * <p>
+ * <p/>
  * This adapter will bind the bitmaps to an ImageView. This behaviour can be of course overloaded.
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 29/05/2014.
  */
 public abstract class BitmapAdapter extends BaseAdapter implements SlideShowAdapter {

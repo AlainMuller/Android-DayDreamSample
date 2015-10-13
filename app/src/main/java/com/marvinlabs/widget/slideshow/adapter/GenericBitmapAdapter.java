@@ -14,10 +14,10 @@ import java.util.List;
  * A BitmapAdapter that loads images asynchronously using AsyncTasks. Don't forget to call the
  * adapter's {#shutdown} method when the activity gets stopped. Failing to do so may leave you with
  * running AsyncTask instances.
- * <p>
+ * <p/>
  * If your items are URLs or resource IDs, you can use our respective basic implementations:
  * RemoteBitmapAdapter or ResourceBitmapAdapter
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 29/05/2014.
  */
 public abstract class GenericBitmapAdapter<T> extends BitmapAdapter {

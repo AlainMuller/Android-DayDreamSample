@@ -5,7 +5,7 @@ import android.view.View;
 
 /**
  * An SlideTransitionFactory object is responsible for creating the animators to switch from one slide to the next one
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 28/05/2014.
  */
 public interface TransitionFactory {

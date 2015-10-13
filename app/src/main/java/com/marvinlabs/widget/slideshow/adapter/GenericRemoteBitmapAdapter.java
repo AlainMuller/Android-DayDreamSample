@@ -10,7 +10,7 @@ import java.util.Collection;
 
 /**
  * A GenericBitmapAdapter that loads images from the Internet.
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 29/05/2014.
  */
 public abstract class GenericRemoteBitmapAdapter<T> extends GenericBitmapAdapter<T> {

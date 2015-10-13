@@ -10,7 +10,7 @@ import com.marvinlabs.widget.slideshow.SlideShowView;
 
 /**
  * A transition maker to zoom the slides in and out
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 28/05/2014.
  */
 public class ZoomTransitionFactory extends BaseTransitionFactory {

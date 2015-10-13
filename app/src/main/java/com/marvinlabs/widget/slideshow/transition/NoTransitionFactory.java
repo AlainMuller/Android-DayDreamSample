@@ -8,7 +8,7 @@ import com.marvinlabs.widget.slideshow.TransitionFactory;
 
 /**
  * A transition maker to avoid any transition
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 28/05/2014.
  */
 public class NoTransitionFactory implements TransitionFactory {

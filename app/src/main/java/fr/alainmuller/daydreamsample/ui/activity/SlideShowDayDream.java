@@ -1,6 +1,7 @@
 package fr.alainmuller.daydreamsample.ui.activity;
 
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.service.dreams.DreamService;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.marvinlabs.widget.slideshow.transition.SlideAndZoomTransitionFactory;
 import java.util.Arrays;
 
 import fr.alainmuller.daydreamsample.R;
+import fr.alainmuller.daydreamsample.ui.helper.SystemUiHelper;
 
 public class SlideShowDayDream extends DreamService {
 
@@ -25,7 +27,27 @@ public class SlideShowDayDream extends DreamService {
     SlideShowAdapter mAdapter;
 
     // OVERRIDE METHODS ****************************************************************************
+    private SlideShowView.OnSlideShowEventListener slideShowListener = new SlideShowView.OnSlideShowEventListener() {
+        @Override
+        public void beforeSlideShown(SlideShowView parent, int position) {
+            Log.d("SlideShowDemo", "OnSlideShowEventListener.beforeSlideShown: " + position);
+        }
 
+        @Override
+        public void onSlideShown(SlideShowView parent, int position) {
+            Log.d("SlideShowDemo", "OnSlideShowEventListener.onSlideShown: " + position);
+        }
+
+        @Override
+        public void beforeSlideHidden(SlideShowView parent, int position) {
+            Log.d("SlideShowDemo", "OnSlideShowEventListener.beforeSlideHidden: " + position);
+        }
+
+        @Override
+        public void onSlideHidden(SlideShowView parent, int position) {
+            Log.d("SlideShowDemo", "OnSlideShowEventListener.onSlideHidden: " + position);
+        }
+    };
 
     @Override
     public void onDreamingStarted() {
@@ -51,10 +73,14 @@ public class SlideShowDayDream extends DreamService {
 
         setContentView(mSlideShowView);
 
-        // Force hiding navbar on older devices
+        // TODO : remove this call, helper not working =(
+        final SystemUiHelper helper = new SystemUiHelper(this, SystemUiHelper.LEVEL_IMMERSIVE, SystemUiHelper.FLAG_IMMERSIVE_STICKY);
+        helper.hide();
+
+        // Force IMMERSIVE MODE on Daydream
         mSlideShowView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                | ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) ? View.SYSTEM_UI_FLAG_IMMERSIVE : 0));
 
         // Fetch screen height and width, to use as our max size when loading images as this
         // activity runs full screen
@@ -66,6 +92,8 @@ public class SlideShowDayDream extends DreamService {
         startSlideShow(width > 1920 ? 1920 : width, height > 1920 ? 1920 : height);
     }
 
+    // PRIVATE METHODS *****************************************************************************
+
     @Override
     public void onDetachedFromWindow() {
         if (mAdapter != null) {
@@ -73,8 +101,6 @@ public class SlideShowDayDream extends DreamService {
         }
         super.onDetachedFromWindow();
     }
-
-    // PRIVATE METHODS *****************************************************************************
 
     private SlideShowAdapter createRemoteAdapter(final int width, final int height) {
         Log.d(getClass().getSimpleName(), "createRemoteAdapter > Generating image URLs for screen : " + width + "x" + height);
@@ -100,27 +126,5 @@ public class SlideShowDayDream extends DreamService {
         mSlideShowView.setOnSlideShowEventListener(slideShowListener);
         mSlideShowView.play();
     }
-
-    private SlideShowView.OnSlideShowEventListener slideShowListener = new SlideShowView.OnSlideShowEventListener() {
-        @Override
-        public void beforeSlideShown(SlideShowView parent, int position) {
-            Log.d("SlideShowDemo", "OnSlideShowEventListener.beforeSlideShown: " + position);
-        }
-
-        @Override
-        public void onSlideShown(SlideShowView parent, int position) {
-            Log.d("SlideShowDemo", "OnSlideShowEventListener.onSlideShown: " + position);
-        }
-
-        @Override
-        public void beforeSlideHidden(SlideShowView parent, int position) {
-            Log.d("SlideShowDemo", "OnSlideShowEventListener.beforeSlideHidden: " + position);
-        }
-
-        @Override
-        public void onSlideHidden(SlideShowView parent, int position) {
-            Log.d("SlideShowDemo", "OnSlideShowEventListener.onSlideHidden: " + position);
-        }
-    };
 
 }

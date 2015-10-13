@@ -8,7 +8,7 @@ import java.util.Collection;
 
 /**
  * A GenericBitmapAdapter that loads images from application resources.
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 29/05/2014.
  */
 public abstract class GenericResourceBitmapAdapter<T> extends GenericBitmapAdapter<T> {

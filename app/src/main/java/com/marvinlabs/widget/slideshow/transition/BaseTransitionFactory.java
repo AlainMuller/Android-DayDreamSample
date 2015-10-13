@@ -8,7 +8,7 @@ import com.marvinlabs.widget.slideshow.TransitionFactory;
 /**
  * The base implementation for a transition factory. Provides storage for a duration and an
  * interpolator which should be what is required by most transition factories.
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 02/06/2014.
  */
 public abstract class BaseTransitionFactory implements TransitionFactory {

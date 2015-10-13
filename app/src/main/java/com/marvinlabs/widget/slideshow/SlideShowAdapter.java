@@ -5,7 +5,7 @@ import android.widget.Adapter;
 /**
  * A SlideAdapter object acts as a bridge between a SlideShowView and the underlying SlideShow.
  * The SlideAdapter is responsible for making a View for each slide in the slideshow.
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 28/05/2014.
  */
 public interface SlideShowAdapter extends Adapter {

@@ -4,7 +4,7 @@ import com.marvinlabs.widget.slideshow.PlayList;
 
 /**
  * A list that will play slides in their original order
- * <p>
+ * <p/>
  * Created by Vincent Mimoun-Prat @ MarvinLabs on 29/05/2014.
  */
 public class SequentialPlayList implements PlayList {
