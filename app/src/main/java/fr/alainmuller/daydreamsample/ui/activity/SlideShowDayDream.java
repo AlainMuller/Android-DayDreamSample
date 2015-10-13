@@ -1,8 +1,9 @@
-package fr.alainmuller.daydreamsample.ui;
+package fr.alainmuller.daydreamsample.ui.activity;
 
 import android.graphics.BitmapFactory;
 import android.service.dreams.DreamService;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,21 +11,17 @@ import com.marvinlabs.widget.slideshow.SlideShowAdapter;
 import com.marvinlabs.widget.slideshow.SlideShowView;
 import com.marvinlabs.widget.slideshow.adapter.GenericBitmapAdapter;
 import com.marvinlabs.widget.slideshow.adapter.RemoteBitmapAdapter;
+import com.marvinlabs.widget.slideshow.transition.SlideAndZoomTransitionFactory;
 
 import java.util.Arrays;
 
 import fr.alainmuller.daydreamsample.R;
 
-/**
- * Not really an Activity but just pretend it is one
- * <p>
- * Where onCreate is onDreamingStarted
- * Where onPause is onDreamingStopped
- */
-public class DayDreamActivity extends DreamService {
+public class SlideShowDayDream extends DreamService {
 
     SlideShowView mSlideShowView;
-    private SlideShowAdapter mAdapter;
+    View mDecorView;
+    SlideShowAdapter mAdapter;
 
     // OVERRIDE METHODS ****************************************************************************
 
@@ -32,19 +29,18 @@ public class DayDreamActivity extends DreamService {
     @Override
     public void onDreamingStarted() {
         super.onDreamingStarted();
-        // Removed the status bar
         setFullscreen(true);
         // TODO : set to true to enable onClickListener
         setInteractive(false);
         setScreenBright(true);
 
-        // Acts just like an Activity
-        setContentView(R.layout.activity_daydream);
-        mSlideShowView = (SlideShowView) findViewById(R.id.slideshow);
+        final LayoutInflater inflater = LayoutInflater.from(this);
+        mSlideShowView = (SlideShowView) inflater.inflate(R.layout.activity_daydream, null);
         mSlideShowView.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.d(getClass().getCanonicalName(), "OnClick > slideShow");
                         Toast.makeText(v.getContext(), "Go back to home activity", Toast.LENGTH_LONG).show();
                         // TODO
                         finish();
@@ -52,6 +48,14 @@ public class DayDreamActivity extends DreamService {
                 }
         );
 
+        setContentView(mSlideShowView);
+
+        // Force hiding navbar on older devices
+        mSlideShowView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE);
+
+        //hideSystemUI();
         startSlideShow();
     }
 
@@ -67,10 +71,10 @@ public class DayDreamActivity extends DreamService {
 
     private SlideShowAdapter createRemoteAdapter() {
         String[] slideUrls = new String[]{
-                "http://lorempixel.com/1280/720/sports",
-                "http://lorempixel.com/1280/720/nature",
-                "http://lorempixel.com/1280/720/people",
-                "http://lorempixel.com/1280/720/city",
+                "http://lorempixel.com/1024/768/sports",
+                "http://lorempixel.com/1024/768/nature",
+                "http://lorempixel.com/1024/768/people",
+                "http://lorempixel.com/1024/768/city",
         };
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inSampleSize = 2;
@@ -82,7 +86,7 @@ public class DayDreamActivity extends DreamService {
         mAdapter = createRemoteAdapter();
         mSlideShowView.setAdapter(mAdapter);
         // Optional customisation
-        // mSlideShowView.setTransitionFactory(new RandomTransitionFactory());
+        mSlideShowView.setTransitionFactory(new SlideAndZoomTransitionFactory());
         // mSlideShowView.setPlaylist(new RandomPlayList());
         mSlideShowView.setOnSlideShowEventListener(slideShowListener);
         mSlideShowView.play();
