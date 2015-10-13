@@ -2,6 +2,7 @@ package fr.alainmuller.daydreamsample.ui.activity;
 
 import android.graphics.BitmapFactory;
 import android.service.dreams.DreamService;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,8 +56,14 @@ public class SlideShowDayDream extends DreamService {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE);
 
-        //hideSystemUI();
-        startSlideShow();
+        // Fetch screen height and width, to use as our max size when loading images as this
+        // activity runs full screen
+        final DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        final int height = displayMetrics.heightPixels;
+        final int width = displayMetrics.widthPixels;
+        // LoremPixel cap images at 1920px max
+        startSlideShow(width > 1920 ? 1920 : width, height > 1920 ? 1920 : height);
     }
 
     @Override
@@ -69,12 +76,14 @@ public class SlideShowDayDream extends DreamService {
 
     // PRIVATE METHODS *****************************************************************************
 
-    private SlideShowAdapter createRemoteAdapter() {
+    private SlideShowAdapter createRemoteAdapter(final int width, final int height) {
+        Log.d(getClass().getSimpleName(), "createRemoteAdapter > Generating image URLs for screen : " + width + "x" + height);
+
         String[] slideUrls = new String[]{
-                "http://lorempixel.com/1024/768/sports",
-                "http://lorempixel.com/1024/768/nature",
-                "http://lorempixel.com/1024/768/people",
-                "http://lorempixel.com/1024/768/city",
+                "http://lorempixel.com/" + width + "/" + height + "/sports",
+                "http://lorempixel.com/" + width + "/" + height + "/nature",
+                "http://lorempixel.com/" + width + "/" + height + "/people",
+                "http://lorempixel.com/" + width + "/" + height + "/city",
         };
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inSampleSize = 2;
@@ -82,8 +91,8 @@ public class SlideShowDayDream extends DreamService {
         return mAdapter;
     }
 
-    private void startSlideShow() {
-        mAdapter = createRemoteAdapter();
+    private void startSlideShow(final int width, final int height) {
+        mAdapter = createRemoteAdapter(width, height);
         mSlideShowView.setAdapter(mAdapter);
         // Optional customisation
         mSlideShowView.setTransitionFactory(new SlideAndZoomTransitionFactory());
